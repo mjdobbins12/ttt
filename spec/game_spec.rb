@@ -1,5 +1,6 @@
 require './lib/game'
 require './lib/player'
+require 'victory_conditions_helper'
 
 describe Game do
   before(:each) do
@@ -15,7 +16,24 @@ describe Game do
 
   it 'alternates between player moves' do
     expect(@game.turn).to eq(@game.player1)
-    @game.move
+    @game.move(0)
     expect(@game.turn).to eq(@game.player2)
+  end
+
+  it 'allows players to put their sign on an unclaimed square' do
+    @game.move(0)
+    expect(@game.board[0]).to eq(@game.player1.sign)
+  end
+
+  it 'awards a victory if a player claims all the fields in one row' do
+    row_victory
+    expect(@game.victor).to eq(@game.player1)
+    expect(@game.complete?).to eq(true)
+  end
+
+  it 'awards a victory if a player claims all the fields in one row' do
+    row_vic_two
+    expect(@game.victor).to eq(@game.player1)
+    expect(@game.complete?).to eq(true)
   end
 end

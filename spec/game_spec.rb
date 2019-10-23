@@ -12,4 +12,10 @@ describe Game do
     expect(@game.player1).to be_instance_of(Player)
     expect(@game.player2).to be_instance_of(Player)
   end
+
+  it 'alternates between player moves' do
+    expect(@game.turn).to eq(@game.player1)
+    @game.move
+    expect(@game.turn).to eq(@game.player2)
+  end
 end

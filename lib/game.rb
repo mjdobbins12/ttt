@@ -17,9 +17,11 @@ class Game
   end
 
   def move(square)
-    @board.map! { |x| x == square ? @turn.sign : x }
-    check_victory_conditions
-    change_turns
+    unless complete?
+      @board.map! { |x| x == square ? @turn.sign : x }
+      check_victory_conditions
+      change_turns
+    end
   end
 
   def complete?
@@ -42,6 +44,7 @@ class Game
   def check_victory_conditions
     row_victory_conditions
     column_victory_conditions
+    diagonal_victory_conditions
   end
 
   def row_victory_conditions
@@ -49,18 +52,29 @@ class Game
     row2 = (@board.slice(3..5).all? { |square| square == @turn.sign })
     row3 = (@board.slice(6..8).all? { |square| square == @turn.sign })
     if (row1 || row2 || row3)
-      @victor = @turn
-      @complete = true
+      win
     end
   end
 
   def column_victory_conditions
-    row1 = (@board.select.with_index{ |val, index| index % 3 == 0 }.all? { |square| square == @turn.sign })
-    row2 = (@board.select.with_index{ |val, index| index % 3 == 1 }.all? { |square| square == @turn.sign })
-    row3 = (@board.select.with_index{ |val, index| index % 3 == 2 }.all? { |square| square == @turn.sign })
-    if (row1 || row2 || row3)
-      @victor = @turn
-      @complete = true
+    col1 = (@board.select.with_index{ |val, index| index % 3 == 0 }.all? { |square| square == @turn.sign })
+    col2 = (@board.select.with_index{ |val, index| index % 3 == 1 }.all? { |square| square == @turn.sign })
+    col3 = (@board.select.with_index{ |val, index| index % 3 == 2 }.all? { |square| square == @turn.sign })
+    if (col1 || col2 || col3)
+      win
     end
+  end
+
+  def diagonal_victory_conditions
+    diag1 = ([@board[0], @board[4], @board[8]].all? { |square| square == @turn.sign })
+    diag2 = ([@board[2], @board[4], @board[6]].all? { |square| square == @turn.sign })
+    if (diag1 || diag2)
+      win
+    end
+  end
+
+  def win
+    @victor = @turn
+    @complete = true
   end
 end

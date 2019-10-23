@@ -42,4 +42,10 @@ describe Game do
     expect(@game.victor).to eq(@game.player1)
     expect(@game.complete?).to eq(true)
   end
+
+  it 'awards a victory if a player claims all the squares in a diagonal' do
+    diagonal_victory
+    expect(@game.victor).to eq(@game.player1)
+    expect(@game.complete?).to eq(true)
+  end
 end

@@ -21,3 +21,11 @@ def column_victory
   @game.move(4)
   @game.move(6)
 end
+
+def diagonal_victory
+  @game.move(0)
+  @game.move(1)
+  @game.move(4)
+  @game.move(6)
+  @game.move(8)
+end

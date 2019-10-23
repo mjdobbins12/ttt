@@ -41,12 +41,23 @@ class Game
 
   def check_victory_conditions
     row_victory_conditions
+    column_victory_conditions
   end
 
   def row_victory_conditions
     row1 = (@board.slice(0..2).all? { |square| square == @turn.sign })
     row2 = (@board.slice(3..5).all? { |square| square == @turn.sign })
     row3 = (@board.slice(6..8).all? { |square| square == @turn.sign })
+    if (row1 || row2 || row3)
+      @victor = @turn
+      @complete = true
+    end
+  end
+
+  def column_victory_conditions
+    row1 = (@board.select.with_index{ |val, index| index % 3 == 0 }.all? { |square| square == @turn.sign })
+    row2 = (@board.select.with_index{ |val, index| index % 3 == 1 }.all? { |square| square == @turn.sign })
+    row3 = (@board.select.with_index{ |val, index| index % 3 == 2 }.all? { |square| square == @turn.sign })
     if (row1 || row2 || row3)
       @victor = @turn
       @complete = true

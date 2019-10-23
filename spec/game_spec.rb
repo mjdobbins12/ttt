@@ -25,14 +25,20 @@ describe Game do
     expect(@game.board[0]).to eq(@game.player1.sign)
   end
 
-  it 'awards a victory if a player claims all the fields in one row' do
+  it 'awards a victory if a player claims all the squares in one row' do
     row_victory
     expect(@game.victor).to eq(@game.player1)
     expect(@game.complete?).to eq(true)
   end
 
-  it 'awards a victory if a player claims all the fields in one row' do
+  it 'awards a victory if a player claims all the squares in a different row' do
     row_vic_two
+    expect(@game.victor).to eq(@game.player1)
+    expect(@game.complete?).to eq(true)
+  end
+
+  it 'awards a victory if a player claims all the squares in one column' do
+    column_victory
     expect(@game.victor).to eq(@game.player1)
     expect(@game.complete?).to eq(true)
   end

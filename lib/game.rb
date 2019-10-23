@@ -25,6 +25,7 @@ class Game
   end
 
   def complete?
+    @complete = true if (@board.uniq.length == 2)
     @complete
   end
 

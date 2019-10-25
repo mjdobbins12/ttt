@@ -36,10 +36,7 @@ class Game
   private
 
   def change_turns
-    if @turn == @player1
-      @turn = @player2
-    else @turn = @player1
-    end
+    @turn == @player1 ? @turn = @player2 : @turn = @player1
   end
 
   def check_victory_conditions

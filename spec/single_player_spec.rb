@@ -10,4 +10,9 @@ describe SinglePlayerGame do
 		@spg.move(4)
 		expect(@spg.board[0]).to eq("Y")
 	end
+	
+	it 'responds to upper corner opening with center' do
+		@spg.move(0)
+		expect(@spg.board[4]).to eq("Y")
+	end
 end

@@ -15,4 +15,10 @@ describe SinglePlayerGame do
 		@spg.move(0)
 		expect(@spg.board[4]).to eq("Y")
 	end
+	
+	it 'blocks p1 from finishing a column' do
+		@spg.move(4)
+		@spg.move(1)
+		expect(@spg.board[7]).to eq("Y")
+	end
 end

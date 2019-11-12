@@ -1,5 +1,4 @@
 require './lib/game'
-require './lib/player'
 require 'victory_conditions_helper'
 
 describe Game do

@@ -39,7 +39,7 @@ class SinglePlayerGame < Game
   def computer_move
     look_for_winning_moves
     check_victory_conditions
-    block_player1
+    block_player1 unless complete?
     if @board.count(@player2.sign) < @board.count(@player1.sign)
       normal_computer_move
     end
@@ -51,7 +51,7 @@ class SinglePlayerGame < Game
     victory_rows.each do |row|
       if row.count(@player2.sign) == 2
         new_move = row.select{ |x| x != @player2.sign }
-        if @board[new_move] != @player1.sign
+        if @board[new_move[0]] != @player1.sign
           @board[new_move[0]] = @player2.sign
           break
         end
@@ -74,6 +74,8 @@ class SinglePlayerGame < Game
       @board[4] = @player2.sign
     elsif @board[0] == 0
       @board[0] = @player2.sign
+    else
+      @board[2] = @player2.sign
     end
   end
   

@@ -27,4 +27,18 @@ describe SinglePlayerGame do
 		@spg.move(3)
 		expect(@spg.board[5]).to eq("Y")
 	end
+	
+	it 'blocks p1 from finishing a diagonal' do
+		@spg.move(4)
+		@spg.move(6)
+		expect(@spg.board[2]).to eq("Y")
+	end
+	
+	it 'wins when it can' do
+		@spg.move(4)
+		@spg.move(7)
+		@spg.move(8)
+		expect(@spg.board[2]).to eq("Y")
+		expect(@spg.victor).to eq(@spg.player2)
+	end
 end
